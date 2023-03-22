@@ -1,30 +1,28 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase/config";
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import { CreateUser } from "../../functions/emailFunctions";
 
-
+// CSS
 import "./SignUpForm.css"
 
 export const SignUpForm = () => {
+    let navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const signUpFunction = (event) => {
+    const signUpFunction = async (event) => {
         event.preventDefault()
-        // const auth = getAuth();
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                console.log(user)
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode, errorMessage)
-            });
-        setEmail("");
-        setPassword("")
+        try {
+            const userCredentials = await CreateUser(email, password)
+            if (userCredentials.user) {
+                console.log('SignUp Form: ', userCredentials.user);
+                navigate('/Home');
+                setEmail("");
+                setPassword("");
+            } 
+        } catch (error) {
+            alert(error)
+        }
     }
 
     return (
