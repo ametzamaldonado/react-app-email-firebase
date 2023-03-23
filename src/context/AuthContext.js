@@ -1,35 +1,71 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/config";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut
+} from 'firebase/auth';
 
-export const AuthContext = React.createContext();
- 
+const AuthContext = React.createContext();
+
+export function useAuth() {
+  return useContext(AuthContext)
+}
+
 export function AuthProvider({ children }){
-  const [ user, setUser ] = useState(null);
-  const [ pending, setPending ] = useState(true);
+  const [ currentUser, setCurrentUser ] = useState();
+  const [ loading, setLoading ] = useState(true);
+
+  function signup(email, password) {
+    return createUserWithEmailAndPassword(auth, email, password)
+  }
+
+  function login(email, password) {
+    return  signInWithEmailAndPassword(auth, email, password)
+  }
+
+  function logout() {
+    return (
+      signOut(auth).then(() => {
+          // Sign-out successful.
+          alert('Successfully signed out!');
+      }).catch((error) => {
+          // An error happened.
+          alert('Error encountered! ', error)
+      })
+  )
+  }
 
   useEffect(() => {
     const unsubscribeFromAuthStateChanged = onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in
-        setUser(user);
+        setCurrentUser(user);
       } else {
         // User is signed out
-        setUser(null);
+        setCurrentUser(null);
       }
-      setPending(false)
+      setLoading(false)
     });
 
     return unsubscribeFromAuthStateChanged;
   }, []);
 
-  if(pending) {
+  if(loading) {
     return <>Loading...</>
   }
 
+  const value = {
+    currentUser,
+    login,
+    signup,
+    logout,
+  }
+
   return (
-    <AuthContext.Provider value={{ user }}>
-      { children }
+    <AuthContext.Provider value={ value }>
+      { !loading && children }
     </AuthContext.Provider>
   );
 }

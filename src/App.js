@@ -8,7 +8,7 @@ import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './navigation/ProtectedRoute';
 // Components/Pages Imported
 import { LoginForm, SignUpForm } from "../src/components/componentsIndex";
-import Home from "../src/pages/LoggedInPages/Home"
+import Dashboard from "../src/pages/Dashboard"
 
 function App() {
 
@@ -18,13 +18,13 @@ function App() {
 
         {/* --------- NavBar Component would go here --------- */}
         {/* 
-          As the routes are, the 'login' and 'signup' paths cannot access 'Home' path without being logged in,
+          As the routes are, the 'login' and 'signup' paths cannot access 'Dashboard' path without being logged in,
           BUT a logged in user can navigate to the 'login' and 'signup'
         */}
         <Routes>
+          <Route exact path="/" element={<ProtectedRoute><Dashboard/></ProtectedRoute>} />
           <Route path="/signup" element={<SignUpForm />} />
           <Route path="/login" element={<LoginForm />} />
-          <Route path='/Home' element={<ProtectedRoute><Home /></ProtectedRoute>} />
         </Routes>
 
       </AuthProvider>

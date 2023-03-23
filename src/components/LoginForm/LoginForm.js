@@ -1,40 +1,41 @@
 import React, { useState } from "react";
-import { SignIn } from "../../functions/emailFunctions";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext"
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
-    let navigate = useNavigate();
+    const { login } = useAuth()
+    const navigate = useNavigate();
     const [emailValue, setEmailValue] = useState("");
     const [passwordValue, setPasswordValue] = useState("");
+    const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false)
 
-    const signIn = async (event) => {
-        event.preventDefault();
+    async function handleLogin(event) {
+        event.preventDefault()
+
         try {
-            const userCredential = await SignIn(emailValue, passwordValue);
-            if (userCredential.user) {
-                console.log('Login Form: ', userCredential.user);
-                navigate('/Home');
-                setEmailValue('');
-                setPasswordValue('');
-            }
+            setError('');
+            setLoading(true);
+            await login(emailValue, passwordValue);
+            navigate("/")
         } catch (error) {
-            console.log(error)
             const errorCode = error.code;
-            const errorMessage = error.message;
             if (errorCode === 'auth/wrong-password') {
-                alert('Wrong password. Please try again');
+                setError('Wrong password. Please try again');
             } else if (errorCode === 'auth/user-not-found') {
-                alert(`Can't find email: ${emailValue} in our database. Please make sure you are using the correct email.`);
+                setError(`Can't find email: ${emailValue} in our database. Please make sure you are using the correct email.`);
             } else {
-                alert(errorMessage);
+                setError("Failed to log in");
             }
         }
+        setLoading(false);
     }
 
     return (
         <div className="container" margin-top="20px">
+            {error && <h1>{error}</h1>}
             <form
-                onSubmit={(e) => signIn(e)}
+                onSubmit={handleLogin}
             >
                 <label>What is your email?</label>
                 <input
@@ -50,7 +51,8 @@ const LoginForm = () => {
                     value={passwordValue}
                     onChange={(event) => setPasswordValue(event.target.value)}
                 />
-                <button type="submit">Login</button>
+                <button type="submit" disabled={loading}>Log In</button>
+                <button><Link to='/signup'>Sign Up</Link></button>
             </form>
         </div>
     );
