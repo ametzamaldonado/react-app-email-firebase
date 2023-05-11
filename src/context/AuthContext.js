@@ -4,37 +4,37 @@ import { auth } from "../firebase/config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut
-} from 'firebase/auth';
+  signOut,
+} from "firebase/auth";
 
 const AuthContext = React.createContext();
 
 export function useAuth() {
-  return useContext(AuthContext)
+  return useContext(AuthContext);
 }
 
-export function AuthProvider({ children }){
-  const [ currentUser, setCurrentUser ] = useState();
-  const [ loading, setLoading ] = useState(true);
+export function AuthProvider({ children }) {
+  const [currentUser, setCurrentUser] = useState();
+  const [loading, setLoading] = useState(true);
 
   function signup(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password)
+    return createUserWithEmailAndPassword(auth, email, password);
   }
 
   function login(email, password) {
-    return  signInWithEmailAndPassword(auth, email, password)
+    return signInWithEmailAndPassword(auth, email, password);
   }
 
   function logout() {
-    return (
-      signOut(auth).then(() => {
-          // Sign-out successful.
-          alert('Successfully signed out!');
-      }).catch((error) => {
-          // An error happened.
-          alert('Error encountered! ', error)
+    return signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        alert("Successfully signed out!");
       })
-  )
+      .catch((error) => {
+        // An error happened.
+        alert("Error encountered! ", error);
+      });
   }
 
   useEffect(() => {
@@ -46,14 +46,14 @@ export function AuthProvider({ children }){
         // User is signed out
         setCurrentUser(null);
       }
-      setLoading(false)
+      setLoading(false);
     });
 
     return unsubscribeFromAuthStateChanged;
   }, []);
 
-  if(loading) {
-    return <>Loading...</>
+  if (loading) {
+    return <>Loading...</>;
   }
 
   const value = {
@@ -61,14 +61,11 @@ export function AuthProvider({ children }){
     login,
     signup,
     logout,
-  }
+  };
 
   return (
-    <AuthContext.Provider value={ value }>
-      { !loading && children }
+    <AuthContext.Provider value={value}>
+      {!loading && children}
     </AuthContext.Provider>
   );
 }
-
-
-

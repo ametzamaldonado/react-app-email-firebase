@@ -1,70 +1,36 @@
-# Getting Started with Create React App
+# Creating a React App Login using Firebase (with email sign-in method)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+To run this template, enter the following command:
+### 
+    npm start
+    
 
-## Available Scripts
+**Note: this repository is intended to be used as a template for future projects**
 
-In the project directory, you can run:
+## Setting up firebase for project:
+1. Head to https://console.firebase.google.com/ 
+2. Click "Add project" and follow the steps prompted 
+3. Once created, head to the "Authentication" tab on the left side of your screen, right below the Project Overview.
+4. Click "Get started"
+5. Under "Sign-in method" click on "Email/Password" under Native providers and make sure to enable and save these changes.
+6. Now that email login is enabled, click on the gear icon next to "Project Overview" and head to "Project settings" 
+7. Scroll to the "Your apps" section and follow the instructions to add firebase to this template using the appropiate npm packages and access keys.
 
-### `npm start`
+**Reminder: place the access keys in a '.env' file**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<br>
+<br>
 
-### `npm test`
+### <u> In order to copy and use this template, perform the following: </u>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Log into your own account on GitHub.
+2. In the '+' menu on the upper right, choose Import repository
+3. Complete the Import form fields:
+    - Your old repository’s clone URL: enter this exactly: https://github.com/ametzamaldonado/react-app-email-firebase
+    - Choose your own account as owner and type a repo name
+4. Click Begin import.
+5. Wait for the import to complete. If the repo is imported successfully, you will see a confirmation message. If you don’t see a success message, go back to 1 and start over.
+6. Confirm your copy exists. Click the link on your new repository to see it on GitHub.
+7. Confirm your copy works.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
